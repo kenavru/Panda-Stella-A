@@ -17,3 +17,13 @@ regulować jasność od 0 do 100%
 chciałem jeszcze dodać regulacje FAN1 i może FAN0, niestety one są sterowane napięciowo, każdy ma swoją przetworniczkę, będzie sporo grzebania
 domyślnie FAN1 od leda ma 7V
 FAN0 od LCD ma 10V
+---------------------------
+edit:
+Z innych rzeczy
+- Działają karty audio USB, więc można uzyskać dobrą jakosć dzwięku
+- Działają Dyski, pendrive po usb
+- Działają inne kontrolery, pady po usb.
+- NIE działają karty eternet, wifi, ale tutaj bardziej jak problem z kernelem, stawiałbym na okrojoną aplikację settings.
+- Moonlight działa całkiem nieźle, ale problemem jest wifi - mimo pełnego zasięku osiąga jedynie niestabilne 7-26Mbps
+
+Top prio na tą chwilę to zapewnic mu lepsze łącze sieciowe
