@@ -19,12 +19,16 @@ Profil zdjęty z działającego urządzenia (`http://pandastella.lan/`, 2026-11-
 | GPIO | Funkcja | ID | Do czego |
 | --- | --- | --- | --- |
 | GPIO4 | Counter1 | 352 | licznik impulsów |
-| GPIO5 | Relay_i1 | 256 | przekaźnik (odwrócony) — włącznik projektora |
+| GPIO5 | Relay_i1 | 256 | `POWER1` — przekaźnik odcinający zasilanie LED (odwrócony) |
 | GPIO13 | SerBr Tx | 1792 | serial bridge, 115200 8N1 |
 | GPIO14 | PWM1 | 416 | `PWM_DIM` — jasność LED |
 | GPIO16 | SerBr Rx | 1824 | serial bridge, 115200 8N1 |
 
 Pozostałe piny: `None`.
+
+> `POWER1` = odcięcie zasilania LED (fizyczny przekaźnik na `GPIO5`). `POWER2` ma
+> docelowo wciskać przycisk projektora przez pady `SYS_PWR`, ale w tym profilu nie ma
+> jeszcze drugiego wyjścia — TODO.
 
 ## Pliki
 

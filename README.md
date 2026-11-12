@@ -50,8 +50,8 @@ Na ten moment do płyty podłączony jest **ESP8266 z Tasmotą**, a pilotem jest
 
 Co można zrobić z telefonu:
 
-- wcisnąć przycisk włącznika projektora,
-- włączyć / wyłączyć LED,
+- wcisnąć przycisk włącznika projektora (`POWER2`),
+- odciąć zasilanie LED (`POWER1`),
 - regulować jasność w zakresie **0–100%**.
 
 Szczegóły montażu i podłączenia — patrz [film](https://www.youtube.com/watch?v=j7VabG2wWTw).
@@ -64,13 +64,15 @@ Na płycie siedzi ESP8266 z **Tasmotą 14.2.0**, dostępny w sieci lokalnej jako
 | GPIO | Funkcja | Rola |
 | --- | --- | --- |
 | GPIO4 | `Counter1` | licznik impulsów |
-| GPIO5 | `Relay_i1` | przekaźnik (odwrócony) |
+| GPIO5 | `Relay_i1` | `POWER1` — przekaźnik odcinający zasilanie LED (odwrócony) |
 | GPIO13 | `SerBr Tx` | serial bridge 115200 8N1 |
 | GPIO14 | `PWM1` | `PWM_DIM` — jasność LED |
 | GPIO16 | `SerBr Rx` | serial bridge 115200 8N1 |
 
-Kanały: 2 × `Power`, `Dimmer` (0–100%), `Counter`. Cały profil — łącznie z szablonem
-do importu i skryptem eksportującym — jest w katalogu [`tasmota/`](tasmota/).
+Kanały: 2 × `Power`, `Dimmer` (0–100%), `Counter`. `POWER1` to odcięcie LED,
+`POWER2` jest przewidziany na włącznik projektora (pady `SYS_PWR`), ale w tym
+profilu nie ma jeszcze własnego pinu — do zrobienia. Cały profil — łącznie
+z szablonem do importu i skryptem eksportującym — jest w katalogu [`tasmota/`](tasmota/).
 
 Pełna kopia zapasowa (`/dl`) zawiera hasło Wi-Fi, więc świadomie nie trafia do repo.
 

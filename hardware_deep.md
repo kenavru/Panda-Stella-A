@@ -329,10 +329,12 @@ planujesz wyświetlacza ani UI w Berry. S3, jeśli chcesz wszystko na jednym chi
 
 ## 5. Inne pomysły
 
-- `POWER1` / `POWER2` wciąż nie są wyjaśnione. Z silkscreenu wygląda na to, że pady
-  `SYS_PWR` / `SYS_PWR1` to wyprowadzenie przycisku zasilania (patrz §0.3) — jeśli
-  tak, przekaźnik można zastąpić optotriaki/optoizolatorem równolegle do przycisku
-  i mieć ciche włączanie bez klikania.
+- `POWER1` = przekaźnik odcinający zasilanie LED (`GPIO5`, odwrócony). `POWER2` ma
+  docelowo wciskać przycisk projektora przez pady `SYS_PWR` / `SYS_PWR1` (patrz §0.3),
+  ale drugie wyjście nie trafiło jeszcze do profilu Tasmoty — jest tylko jeden
+  `Relay_i1`. Jeśli uda się potwierdzić, że `SYS_PWR` to faktycznie przycisk, można
+  zamiast przekaźnika użyć optoizolatora równolegle do niego i mieć ciche włączanie
+  bez klikania.
 - Na `SerBr Tx/Rx` wisi coś od projektora. Tasmota ma dedykowany sterownik
   [LCD/DLP Projector Control](https://tasmota.github.io/docs/Projector/) — dla
   Androida prawie na pewno nie zadziała, ale samo **nasłuchiwanie tej linii**
