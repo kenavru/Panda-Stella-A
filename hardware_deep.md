@@ -69,13 +69,30 @@ sprawdź, który pad faktycznie daje impulsy. *[pewne: etykiety i `2R2`; prawdop
   również wtedy, gdy projektor „śpi”. Dobre miejsce na zasilenie ESP, żeby było
   osiągalne bez włączania projektora. **Sprawdź multimetrem**, czy naprawdę nie znika.
 - `SYS_PWR` / `SYS_PWR1` to dwa pady w sekcji przycisku, obok `复位开关` (reset).
-  Wyglądają na wyprowadzenie przycisku zasilania — jeśli tak, to właśnie tam należy
-  równolegle wpiąć przekaźnik z `POWER2`, a nie w dowolne miejsce na płycie.
+  To niemal na pewno wyprowadzenie przycisku zasilania — czyli miejsce, w które
+  równolegle wpina się przekaźnik/optoizolator `POWER2`, a nie dowolny punkt na płycie.
+  *[prawdopodobne, do potwierdzenia ciągłością]*
 - Pozostałe szyny widoczne na zdjęciach: `DDR_1.8V`, `VCC_1.8V`, `EMMC_1.8V` (LDO),
   `3V3`, `5VM`, `VODC`, `VGG`, `VDD_TEST1/2`. Czyli eMMC (nie goły NAND) + DDR3L.
   *[prawdopodobne]*
 
-### 0.4 UART i Wi-Fi
+### 0.4 `POWER1` / `POWER2` — co jest czym
+
+Z profilu Tasmoty i z budowy wynika podział:
+
+| Kanał | Co robi | Sprzęt |
+| --- | --- | --- |
+| `POWER1` | odcina zasilanie LED | przekaźnik na `GPIO5` (`Relay_i1`, **odwrócony**) |
+| `POWER2` | wciska przycisk projektora | docelowo równolegle do `SYS_PWR`; **brak drugiego wyjścia w profilu** — TODO |
+
+Czyli samo `POWER1` gasi diodę (ale nie usypia projektora), a `POWER2` ma go
+włączać/wyłączać jak fizyczny przycisk. W wyeksportowanym profilu jest tylko jeden
+`Relay_i1`, więc `POWER2` na razie istnieje jako kanał logiczny bez pinu — trzeba
+dorzucić drugi przekaźnik (albo optoizolator) i przypisać mu GPIO.
+
+*[pewne: `POWER1` = `GPIO5` + odcięcie LED; prawdopodobne: `POWER2` = `SYS_PWR`]*
+
+### 0.5 UART i Wi-Fi
 
 Na górnej krawędzi siedzą pady `UART1` / `UART2` (oraz `TXD1` / `RXD1`) i grupa
 `12V` / `GND` / `VCC` — to wygląda na fabryczne miejsce na moduł Wi-Fi. Fabryczny
@@ -88,7 +105,7 @@ Skoro Tasmota siedzi na ESP8266 (MAC `18:FE:34:…`), a w profilu włączony jes
 to oprócz jasności da się prawdopodobnie wysyłać komendy (źródło, głośność, standby) —
 trzeba tylko podsłuchać protokół. *[hipoteza, do potwierdzenia oscyloskopem]*
 
-### 0.5 Reszta etykiet, które mogą się przydać
+### 0.6 Reszta etykiet, które mogą się przydać
 
 | Etykieta | Co to prawdopodobnie jest |
 | --- | --- |
@@ -112,6 +129,7 @@ znika w standby i który pin taśmy LED odpowiada za co. To trzeba zmierzyć, ni
 | `NTC1` / `NTC2` w temperaturze pokojowej | multimetr (rezystancja) | dobór dzielnika do ADC; `NTC1` prawdopodobnie mierzy LED, nie powietrze (patrz §0.1) |
 | `FAN_FG0` / `FAN_FG1` / `FAN_FG2` — czy pojawiają się impulsy przy kręcącym się wentylatorze | oscyloskop / `Counter` w Tasmocie | potwierdzenie, że `FG` to tacho, i ile impulsów na obrót (patrz §0.2) |
 | `5V_STB` przy wyłączonym i włączonym projektorze | multimetr | czy da się z tego zasilić ESP na stałe (patrz §0.3) |
+| `SYS_PWR` / `SYS_PWR1` — ciągłość do przycisku i stan w spoczynku | multimetr (tryb ciągłości) | potwierdzenie, że to wyprowadzenie przycisku zasilania (patrz §0.4) |
 | Prąd wentylatora i prąd LED | zasilacz z pomiarem / INA219 | dobór MOSFET-a i zakresu pomiaru |
 
 > Uwaga: kondensatory po stronie LED potrafią trzymać ładunek po odłączeniu zasilania.
@@ -339,7 +357,7 @@ planujesz wyświetlacza ani UI w Berry. S3, jeśli chcesz wszystko na jednym chi
   [LCD/DLP Projector Control](https://tasmota.github.io/docs/Projector/) — dla
   Androida prawie na pewno nie zadziała, ale samo **nasłuchiwanie tej linii**
   przez kilka sekund jest darmowe i może pokazać prawdziwy protokół sterowania
-  (patrz §0.4).
+  (patrz §0.5).
 - INA219 na całą linię 12 V daje pobór mocy projektora — ładne uzupełnienie telemetrii.
 - Odbiornik IR (TSOP) + Tasmota IR daje pilota od projektora w HA.
 
