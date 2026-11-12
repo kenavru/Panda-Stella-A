@@ -27,7 +27,9 @@ w oprogramowaniu? Nie wiem xD
 
 Standardowo projektor nie pozwala sterować jasnością LED ani odciąć jej zupełnie.
 Po rozebraniu obudowy okazało się, że na płycie głównej jest wyprowadzone `PWM_DIM` —
-wystarczyło podać tam sygnał z zewnątrz.
+wystarczyło podać tam sygnał z zewnątrz. Sygnał nie idzie do diody bezpośrednio:
+wchodzi do osobnej płytki sterownika (`OD.P.SCSD36.LED`), która trzyma prąd LED
+w pętli. Rozpisane w [`hardware_deep.md`](hardware_deep.md) (§0).
 
 Płyta główna: **OD.P.CRED16PRO.MT9269 (N)** (oznaczenie widoczne na PCB).
 
@@ -78,6 +80,10 @@ Chciałbym dorzucić regulację obrotów, ale nie jest to proste: oba wentylator
 sterowane **napięciowo**, każdy przez własną przetworniczkę. Będzie sporo grzebania.
 Pomysły na rozwiązanie — patrz [`hardware_deep.md`](hardware_deep.md).
 
+Dobra wiadomość z silkscreenu: przy złączach są też wyprowadzenia `FAN_FG0` /
+`FAN_FG1` (`FG` = tacho), więc obroty da się prawdopodobnie **czytać**, a nie tylko
+ustawiać. To zmienia grę, bo pętla może być zamknięta (§0.2 w `hardware_deep.md`).
+
 | Złącze | Chłodzi | Domyślne napięcie |
 | --- | --- | --- |
 | `FAN1` | LED | 7 V |
@@ -90,7 +96,7 @@ Pomysły na rozwiązanie — patrz [`hardware_deep.md`](hardware_deep.md).
 | ![Głośniki i radiator](1726082130443.jpg) | ![Płyta główna pod układem optycznym](1726082130446.jpg) |
 | Głośniki, radiator i złącza z tyłu obudowy | Płyta główna pod układem optycznym |
 | ![Silnik optyczny](1726082130449.jpg) | ![Płyta główna, zbliżenie](1726082130451.jpg) |
-| Silnik optyczny i okablowanie | Płyta główna — sekcja LED i przetwornic |
+| Silnik optyczny, płytka sterownika LED (`OD.P.SCSD36.LED`) i okablowanie | Płyta główna — sekcja LED i przetwornic |
 | ![Etykiety na płycie](1726082130456.jpg) | ![Płyta główna z góry](1726082130464.jpg) |
 | Złącza `FAN0` / `FAN1`, `PWM_DIM`, `LED_OUT` | Cała płyta: `OD.P.CRED16PRO.MT9269 (N)` |
 | ![Radiator i ciepłowody](1726083367515.jpg) | |
