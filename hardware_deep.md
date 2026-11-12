@@ -180,13 +180,49 @@ niezależne włącza `SetOption68 1`.
 
 | | ESP8266 | ESP32-C3 | ESP32 / S3 |
 | --- | --- | --- | --- |
-| PWM (ledc) | do 4 kHz | 6 kanałów | 16 kanałów, do 50 kHz |
-| ADC | 1 kanał | kilka | kilka, 12 bit |
-| DAC | brak | brak | 2 × 8 bit |
-| IR / RMT | software | RMT | RMT |
+| PWM (ledc) | software, do 4 kHz | 6 kanałów, do 50 kHz | 16 kanałów, do 50 kHz |
+| ADC | 1 kanał (A0), 10 bit | 5 użytecznych (GPIO0–4), 12 bit | 8 kanałów ADC1, 12 bit |
+| DAC | brak | **brak** | 2 × 8 bit |
+| IR / RMT | software | 2 × TX + 2 × RX | 8 kanałów |
+| Flashowanie | UART | USB-Serial-JTAG | USB |
+| Rdzeń | 80 MHz | 160 MHz RISC-V | 240 MHz, 2 rdzenie |
 
 Mapa GPIO z [`tasmota/`](tasmota/) przenosi się 1:1 — to nadal te same funkcje,
 tylko na innym pinie.
+
+### A co z ESP32-C3?
+
+C3 to najlepszy stosunek ceny do możliwości w tym projekcie — pod warunkiem, że
+zaakceptujesz zewnętrzny DAC.
+
+**Co dostajesz:** 6 kanałów ledc (do 50 kHz, czyli koniec piszczenia), 5 użytecznych
+ADC 12-bit, RISC-V 160 MHz, USB-Serial-JTAG (flashowanie bez adaptera UART),
+flash w obudowie i oficjalne binarki `tasmota32c3-*`. SuperMini kosztuje ~2 €.
+
+**Czego brakuje:** DAC-a — analogowy dim tylko przez MCP4725 na I²C. Drugi rdzeń
+i BT Classic nie są tu do niczego potrzebne, więc to nie boli.
+
+**Wąskim gardłem są piny, nie CPU.** Na module C3-MINI-1 wystawione jest
+GPIO0–10 i 18–21, czyli ~15 pinów, z czego 2, 8 i 9 to strapping (8 bywa zajęte
+przez RGB LED, 9 to BOOT), a 18/19 to USB. Do tego ADC jest **tylko** na GPIO0–4,
+więc oba NTC muszą tam trafić — i to jest realne ograniczenie, nie liczba kanałów PWM.
+
+Budżet pinów dla tego projektu:
+
+| Funkcja | Pinów |
+| --- | --- |
+| `PWM_DIM` (PWM lub MCP4725) | 1 |
+| `FAN0` + `FAN1` PWM | 2 |
+| `NTC1` + `NTC2` (ADC) | 2 (GPIO0–4) |
+| I²C: MCP4725 + INA219 | 2 |
+| IR / tacho / przycisk | 3 |
+| **razem** | **10** |
+
+Czyli 10 z ~14 — da się, ale bez zapasu na eksperymenty.
+
+**Kiedy C3, a kiedy S3:** C3, jeśli dim idzie przez filtr RC albo MCP4725 i nie
+planujesz wyświetlacza ani UI w Berry. S3, jeśli chcesz wszystko na jednym chipie
+(2 DAC-i, 16 kanałów PWM, więcej GPIO) i nie przeszkadza ci ~2× cena.
 
 ## 4. Inne pomysły
 
