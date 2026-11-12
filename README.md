@@ -17,6 +17,7 @@ co da się z nim zrobić i nad czym jeszcze trzeba popracować.
 - [Środek obudowy](#środek-obudowy)
 - [Znane problemy](#znane-problemy)
 - [Mods / inspiracje](MODS.md)
+- [Hardware deep-dive](hardware_deep.md)
 - [Roadmapa](#roadmapa)
 
 ## O projekcie
@@ -75,6 +76,7 @@ Pełna kopia zapasowa (`/dl`) zawiera hasło Wi-Fi, więc świadomie nie trafia 
 
 Chciałbym dorzucić regulację obrotów, ale nie jest to proste: oba wentylatory są
 sterowane **napięciowo**, każdy przez własną przetworniczkę. Będzie sporo grzebania.
+Pomysły na rozwiązanie — patrz [`hardware_deep.md`](hardware_deep.md).
 
 | Złącze | Chłodzi | Domyślne napięcie |
 | --- | --- | --- |
