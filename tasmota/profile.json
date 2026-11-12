@@ -1,0 +1,94 @@
+{
+  "exported": "2026-11-12T22:16:41+00:00",
+  "source": "http://pandastella.lan/",
+  "device": {
+    "hostname": "PandaStella",
+    "ip": "10.0.1.219",
+    "mac": "18:FE:34:D3:04:68",
+    "hardware": "ESP8266EX",
+    "firmware": "14.2.0(release-tasmota)",
+    "build": "2024-08-14T12:36:35"
+  },
+  "module": {
+    "id": 0,
+    "name": "Generic",
+    "base": 18
+  },
+  "gpio": {
+    "GPIO0": {
+      "id": 0,
+      "function": "None"
+    },
+    "GPIO1": {
+      "id": 0,
+      "function": "None"
+    },
+    "GPIO2": {
+      "id": 0,
+      "function": "None"
+    },
+    "GPIO3": {
+      "id": 0,
+      "function": "None"
+    },
+    "GPIO4": {
+      "id": 352,
+      "function": "Counter1"
+    },
+    "GPIO5": {
+      "id": 256,
+      "function": "Relay_i1"
+    },
+    "GPIO9": {
+      "id": 0,
+      "function": "None"
+    },
+    "GPIO10": {
+      "id": 0,
+      "function": "None"
+    },
+    "GPIO12": {
+      "id": 0,
+      "function": "None"
+    },
+    "GPIO13": {
+      "id": 1792,
+      "function": "SerBr Tx"
+    },
+    "GPIO14": {
+      "id": 416,
+      "function": "PWM1"
+    },
+    "GPIO15": {
+      "id": 0,
+      "function": "None"
+    },
+    "GPIO16": {
+      "id": 1824,
+      "function": "SerBr Rx"
+    },
+    "GPIO17": {
+      "id": 0,
+      "function": "None"
+    }
+  },
+  "channels": {
+    "power": 2,
+    "dimmer": true,
+    "counter": true
+  },
+  "settings": {
+    "friendly_names": [
+      "Tasmota",
+      "Tasmota2"
+    ],
+    "topic": "tasmota_D30468",
+    "power_on_state": 3,
+    "serial": {
+      "baudrate": 115200,
+      "config": "8N1"
+    },
+    "timezone": "+01:00",
+    "wifi_config": 4
+  }
+}

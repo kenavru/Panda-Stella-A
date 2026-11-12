@@ -12,6 +12,7 @@ co da się z nim zrobić i nad czym jeszcze trzeba popracować.
 - [O projekcie](#o-projekcie)
 - [Co działa, a co nie](#co-działa-a-co-nie)
 - [Mod: PWM dla LED (ESP8266 + Tasmota)](#mod-pwm-dla-led-esp8266--tasmota)
+  - [Sterownik Tasmota](#sterownik-tasmota)
 - [Wentylatory FAN0 / FAN1](#wentylatory-fan0--fan1)
 - [Środek obudowy](#środek-obudowy)
 - [Znane problemy](#znane-problemy)
@@ -50,7 +51,24 @@ Co można zrobić z telefonu:
 - regulować jasność w zakresie **0–100%**.
 
 Szczegóły montażu i podłączenia — patrz [film](https://www.youtube.com/watch?v=j7VabG2wWTw).
-Dokładny pinout i schemat pojawią się tutaj, gdy tylko zostaną spisane.
+
+### Sterownik Tasmota
+
+Na płycie siedzi ESP8266 z **Tasmotą 14.2.0**, dostępny w sieci lokalnej jako
+[`http://pandastella.lan/`](http://pandastella.lan/) (mDNS, `PandaStella`).
+
+| GPIO | Funkcja | Rola |
+| --- | --- | --- |
+| GPIO4 | `Counter1` | licznik impulsów |
+| GPIO5 | `Relay_i1` | przekaźnik (odwrócony) |
+| GPIO13 | `SerBr Tx` | serial bridge 115200 8N1 |
+| GPIO14 | `PWM1` | `PWM_DIM` — jasność LED |
+| GPIO16 | `SerBr Rx` | serial bridge 115200 8N1 |
+
+Kanały: 2 × `Power`, `Dimmer` (0–100%), `Counter`. Cały profil — łącznie z szablonem
+do importu i skryptem eksportującym — jest w katalogu [`tasmota/`](tasmota/).
+
+Pełna kopia zapasowa (`/dl`) zawiera hasło Wi-Fi, więc świadomie nie trafia do repo.
 
 ## Wentylatory FAN0 / FAN1
 
@@ -87,10 +105,11 @@ sterowane **napięciowo**, każdy przez własną przetworniczkę. Będzie sporo 
 
 - [x] Sterowanie LED przez PWM (ESP8266 + Tasmota)
 - [x] Włącznik projektora z telefonu
+- [x] Profil Tasmota w repo ([`tasmota/`](tasmota/))
 - [ ] Regulacja `FAN1` (LED)
 - [ ] Regulacja `FAN0` (LCD)
 - [ ] **Lepsze łącze sieciowe — top prio**
-- [ ] Spisany pinout i schemat moda
+- [ ] Schemat połączeń (pinout GPIO jest już w [`tasmota/`](tasmota/))
 
 ## Uwaga
 
